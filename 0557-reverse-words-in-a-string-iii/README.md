@@ -19,3 +19,10 @@
 	<li>All the words in <code>s</code> are separated by a single space.</li>
 </ul>
 </div>
+
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        reverse_s = ""
+        for word in s.split():
+            reverse_s += word[::-1] + " "
+        return reverse_s.rstrip()
