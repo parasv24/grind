@@ -41,3 +41,25 @@ merging them into one sorted list:
 	<li>The sum of <code>lists[i].length</code> will not exceed <code>10<sup>4</sup></code>.</li>
 </ul>
 </div>
+<pre>
+<h1> Fast APPROACH </h1>
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        a = []
+        for l in lists:
+            node = l
+            while node:
+                a.append(node)
+                node = node.next
+        a = sorted(a, key=lambda a: a.val)
+        if len(a) == 0:
+            return None
+        elif len(a) == 1:
+            return a[0]
+        
+        for idx in range(len(a)-1):
+            a[idx].next = a[idx+1]
+
+        a[-1].next = None
+        return a[0]
+</pre>
