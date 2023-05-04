@@ -17,9 +17,23 @@ class Solution(object):
                 if 0 <= nr < n and 0 <= nc < m and vis[nr][nc] == 0 and grid[nr][nc] == '1':
                     dfs(nr, nc)
         count = 0
+
         for i in range(0, n):
             for j in range(0, m):
                 if vis[i][j] == 0 and grid[i][j] == '1':
-                    dfs(i, j)
+                    queue = []
+                    queue.append([i, j])
+                    vis[i][j] = 1
+                    while len(queue) > 0:
+                        r, c = queue[0]
+                        vis[r][c] = 1
+                        queue.pop(0)
+                        for k in range(0, 4):
+                            nr = r + delr[k]
+                            nc = c + delc[k]
+                            if 0 <= nr < n and 0 <= nc < m and vis[nr][nc] == 0 and grid[nr][nc] == '1':
+                                queue.append([nr, nc])
+                                vis[nr][nc] = 1
+                    # dfs(i, j)
                     count += 1
         return count
