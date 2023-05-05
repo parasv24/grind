@@ -16,5 +16,5 @@ class Solution:
             return dp[n]
         for i in range(3, n+1):
             dp2[i] = dp2[i-1] + dp2[i-2]
-        print(recM(n))
+        # print(recM(n))
         return dp2[n]
