@@ -14,5 +14,20 @@ class Solution:
                 return dp[n]
             dp[n] = cost[n] + min(m(n+1),m(n+2))
             return dp[n]
-        return min(m(0), m(1))
+        # return min(m(0), m(1))
+        
+        # TABULATION
+        
+        n = len(cost)
+        for i in range(n-1, -1, -1):
+            dp[i] = cost[i]
+            x = y = 0
+            if i + 1 < n:
+                x = dp[i+1]
+            if i + 2 < n:
+                y = dp[i+2]
+            
+            dp[i] += min(x,y)
+        return min(dp[0], dp[1])
+            
             
