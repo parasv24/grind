@@ -15,4 +15,9 @@ class Solution:
                 return dp[i]
             dp[i] = max(mp[i] * i + m(i+2), m(i+1))
             return dp[i]
-        return m(0)
+        # return m(0)
+        dp[10000] = mp[10000] * 10000
+        dp[9999] = max(mp[9999] * 9999, dp[10000]) 
+        for i in range(9998, -1, -1):
+            dp[i] = max(mp[i] * i + dp[i+2] , dp[i+1])
+        return dp[0]
