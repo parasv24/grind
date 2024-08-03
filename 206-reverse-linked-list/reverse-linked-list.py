@@ -12,4 +12,13 @@ class Solution:
             head.next.next = head
             head.next = None
             return new_head
-        return helper(head)     
+        
+        # Iterative approach
+        curr = head
+        prev = None
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev 
