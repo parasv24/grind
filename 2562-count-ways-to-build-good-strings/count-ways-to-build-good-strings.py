@@ -3,6 +3,6 @@ class Solution:
         @cache
         def helper(length):
             return (helper(length + zero) + helper(length + one) + int(low <= length <= high))% 1000000007 if length <= high else 0
-        return helper(0) % 1000000007
+        return helper(0)
 
         
