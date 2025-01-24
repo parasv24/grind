@@ -8,8 +8,6 @@ def eventual_safe_nodes(graph)
     def dfs(s, vis, path_vis, graph, safe)
         vis[s] = 1
         path_vis[s] = 1
-        puts(s)
-        print(graph[s])
         (graph[s]).each do |el|
         if vis[el] == 0
             if dfs(el, vis, path_vis, graph, safe)
