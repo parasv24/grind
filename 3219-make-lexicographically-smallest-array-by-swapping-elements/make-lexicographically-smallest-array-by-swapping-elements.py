@@ -15,8 +15,10 @@ class Solution:
             prev = num
             mp[col].append(num)
         ans = []
+        idxs = defaultdict(int)
         for idx, num in enumerate(nums):
             col = color[idx]
-            ans.append(mp[col][0])
-            mp[col].pop(0)
+            i = idxs[col]
+            ans.append(mp[col][i])
+            idxs[col] += 1
         return ans
