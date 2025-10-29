@@ -6,7 +6,5 @@ class Solution:
         idx = 0
         for i in range(len(nums)):
             if nums[i] != 0:
-                nums[idx] = nums[i]
+                nums[idx], nums[i] = nums[i], nums[idx]
                 idx += 1
-        for i in range(idx, len(nums)):
-            nums[i] = 0
