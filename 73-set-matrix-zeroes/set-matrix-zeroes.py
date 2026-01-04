@@ -3,15 +3,30 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        row = [0] * len(matrix)
-        col = [0] * len(matrix[0])
-        for i in range(len(row)):
-            for j in range(len(col)):
+        row = len(matrix)
+        col = len(matrix[0])
+        arr = []
+        for i in range(row):
+            for j in range(col):
                 if matrix[i][j] == 0:
-                    row[i] = 1
-                    col[j] = 1
+                    if i!= 0 and j!=0:
+                        matrix[i][0] = 0
+                        matrix[0][j] = 0
+                    if i == 0:
+                        arr.append("row")
+                    if j == 0:
+                        arr.append("col")
+        for i in range(1, row):
+            for j in range(1, col):
+                if matrix[i][0] == 0 or matrix[0][j] == 0:
+                    matrix[i][j] = 0
+        if "row" in arr:
+            for j in range(col):
+                matrix[0][j] = 0
+        if "col" in arr:
+            for j in range(row):
+                matrix[j][0] = 0
+
         
-        for i in range(len(row)):
-            for j in range(len(col)):
-                if row[i] == 1 or col[j] == 1:
-                    matrix[i][j] = 0     
+        
+
