@@ -16,5 +16,4 @@ class Solution:
                 start += 1
             else:
                 i += 1
-            print(i, start, end, nums)
         
