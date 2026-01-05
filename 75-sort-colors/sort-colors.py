@@ -3,18 +3,18 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        i, j = 0, len(nums) - 1
-        k = 0
-        while k <= j:
-            if nums[k] == 0:
-                nums[k], nums[i] =nums[i], nums[k]
-                i += 1
-                k += 1
-            elif nums[k] == 2:
-                nums[k], nums[j] = nums[j], nums[k]
-                j -= 1
+        start, end = 0, len(nums) - 1
+        i = 0
+        while i <= end:
+            if nums[i] == 2:
+                nums[i], nums[end] = nums[end], nums[i]
+                end -= 1
+            elif nums[i] == 0:
+                nums[start] , nums[i] = nums[i], nums[start]
+                if i == start:
+                    i += 1
+                start += 1
             else:
-                k += 1
-            
-        
+                i += 1
+            print(i, start, end, nums)
         
