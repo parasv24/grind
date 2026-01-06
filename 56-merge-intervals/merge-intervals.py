@@ -1,17 +1,29 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort(key=lambda x: x[0])
-        res = []
-        prev = intervals[0]
-        i = 1
-        while i < len(intervals):
-            # print(i, prev)
-            if prev[1] >= intervals[i][0]:
-                prev[1] = max(prev[1], intervals[i][1])
-            else:
-                res.append(prev)
-                prev = intervals[i]
+        mp = [1000000] * 10001
+        for st, end in intervals:
+            if mp[st] == 1000000:
+                mp[st] = 0
+            if mp[end] == 1000000:
+                mp[end] = 0
+            mp[st] += 1
+            mp[end]-= 1
+        ans = []
+        i , prev = 0, 0
+        # print(mp)
+        while i < 10001:
+            if mp[i] != 1000000:
+                start = i
+                sm = mp[i]
+                while sm >= 0 and i < 10001:
+                    if sm == 0:
+                        ans.append([start, i])
+                        break
+                    i += 1
+                    if mp[i] != 1000000:
+                        sm += mp[i]
             i += 1
-        res.append(prev)
-        return res
+        return ans
+
+        
         
