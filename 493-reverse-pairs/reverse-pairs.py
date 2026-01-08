@@ -16,16 +16,16 @@ class Solution:
             k = 0
             while k < length:
                 if i > mid:
-                    temp[k] = nums[j]
+                    # temp[k] = nums[j]
                     j += 1
                 elif j > end:
-                    temp[k] = nums[i]
+                    # temp[k] = nums[i]
                     i += 1
                 elif nums[i] <= 2* nums[j]:
-                    temp[k] = nums[i]
+                    # temp[k] = nums[i]
                     i+= 1
                 else:
-                    temp[k] = nums[j]
+                    # temp[k] = nums[j]
                     j += 1
                     ans += (mid - i + 1)
                 k += 1
