@@ -6,13 +6,17 @@ class Solution:
             return 1.0 if n % 2 == 0 else -1.0
         if n < -1000000:
             return 0
-        @cache
-        def power(x, n):
-            if n == 0:
-                return 1
-            if n & 1 == 0:
-                return power(x, n//2) * power(x, n//2)
-            else:
-                return x * power(x, n//2) * power(x, n//2)
-        return power(x, abs(n)) if n > 0 else 1/power(x,abs(n))
+        mp = {}
+        power = abs(n)
+        ans = 1
+        while power > 0:
+            if power & 1 == 1:
+                ans *= x
+            x*= x
+            power //=2
+        return ans if n > 0 else 1/ans
+
+
+
+
         
