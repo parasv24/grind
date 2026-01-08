@@ -11,8 +11,27 @@ class Solution:
             j = mid + 1
             length = end - start + 1
             temp = [0] * length
-            temp2 = [0] * length
-            k2 = 0
+            # temp2 = [0] * length
+            # k2 = 0
+            k = 0
+            while k < length:
+                if i > mid:
+                    temp[k] = nums[j]
+                    j += 1
+                elif j > end:
+                    temp[k] = nums[i]
+                    i += 1
+                elif nums[i] <= 2* nums[j]:
+                    temp[k] = nums[i]
+                    i+= 1
+                else:
+                    temp[k] = nums[j]
+                    j += 1
+                    ans += (mid - i + 1)
+                k += 1
+            
+            i = start
+            j = mid + 1
             k = 0
             while k < length:
                 if i > mid:
@@ -28,24 +47,6 @@ class Solution:
                     temp[k] = nums[j]
                     j += 1
                 k += 1
-            
-            i = start
-            j = mid + 1
-            while k2 < length:
-                if i > mid:
-                    temp2[k2] = nums[j]
-                    j += 1
-                elif j > end:
-                    temp2[k2] = nums[i]
-                    i += 1
-                elif nums[i] <= 2 * nums[j]:
-                    temp2[k2] = nums[i]
-                    i+= 1
-                else:
-                    temp2[k2] = nums[j]
-                    j += 1
-                    ans += (mid - i + 1)
-                k2 += 1
             for k in range(length):
                 nums[start + k] = temp[k]
             return ans
