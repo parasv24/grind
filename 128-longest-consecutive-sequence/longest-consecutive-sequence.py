@@ -1,21 +1,20 @@
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        mp = Counter(nums)
-        ans = 0
+        mp = {}
         for el in nums:
-            if mp[el] > 0:
-                cur = 1
-                mp[el] = 0
-                neg = el - 1
-                pos = el + 1
-                while(mp[neg] > 0):
-                    mp[neg] = 0
-                    cur += 1
-                    neg -= 1
-                while(mp[pos] > 0):
-                    mp[pos] = 0
-                    cur+= 1
-                    pos+=1
-                if cur > ans:
-                    ans = cur
+            mp[el] = True
+        ans = 0
+        for key in mp.keys():
+            if mp.get(key-1, False) == True:
+                continue
+            cur = 0
+            # print(mp.get(key))
+            while mp.get(key, False) == True:
+                key += 1
+                cur += 1
+            if cur > ans:
+                ans = cur
         return ans
+            
+
+
