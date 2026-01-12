@@ -17,5 +17,22 @@ class Solution:
             node = merge(a, b.next)
             b.next = node
             return b
-        return merge(list1, list2)
+        # return merge(list1, list2)
+        new_head = ListNode()
+        temp = new_head
+        while list1 and list2:
+            if list1.val < list2.val:
+                temp.next = list1
+                list1 = list1.next
+            else:
+                temp.next = list2
+                list2 = list2.next
+            temp = temp.next
+        if list1:
+            temp.next = list1
+        if list2:
+            temp.next = list2
+        return new_head.next
+
+
         
