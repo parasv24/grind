@@ -20,5 +20,35 @@ class Solution:
             a.val = val % 10
             a.next = sum(a.next, b.next, val // 10)
             return a
-        return sum(l1, l2, 0)
+        # return sum(l1, l2, 0)
+        c = 0
+        new_head = ListNode(0, l1)
+        prev = new_head
+        while l1 and l2:
+            val = l1.val + l2.val + c
+            l1.val = val % 10
+            c = val // 10
+            prev.next = l1
+            prev = prev.next
+            l1 = l1.next
+            l2 = l2.next
+        if not l1:
+            l1 = l2
+        while l1 or c > 0:
+            if not l1:
+                prev.next = ListNode(c)
+                break
+            else:
+                val = l1.val + c
+                l1.val = val % 10
+                c = val // 10
+                prev.next= l1
+                prev = prev.next
+                l1 = l1.next
+        return new_head.next
+
+            
+
+
+
 
