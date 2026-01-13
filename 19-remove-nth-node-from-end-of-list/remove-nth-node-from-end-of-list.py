@@ -17,6 +17,15 @@ class Solution:
 
             head.next = remove(head.next, n-1)
             return head
-        return remove(head, newn)
+        # return remove(head, newn)
+        dummy = ListNode(0, head)
+        slow, fast = dummy, dummy
+        for _ in range(n+1):
+            fast = fast.next
+        while fast:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return dummy.next
 
         
