@@ -9,7 +9,7 @@ class Solution:
             return False
         # piles.sort()
         lo = 1
-        hi = max(piles)
+        hi = 1000000000
         ans = -1
         while lo <= hi:
             mid = (lo + hi) // 2
