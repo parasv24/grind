@@ -7,9 +7,9 @@ class Solution:
             if ans <= h:
                 return True
             return False
-        piles.sort()
+        # piles.sort()
         lo = 1
-        hi = piles[-1]
+        hi = max(piles)
         ans = -1
         while lo <= hi:
             mid = (lo + hi) // 2
