@@ -18,16 +18,13 @@ class Solution:
             return ans <= days
 
         lo, hi = min(weights), sum(weights)
-        ans = -1
-        while lo <= hi:
+        while lo < hi:
             mid = (lo + hi) // 2
-            # print(lo, mid, hi)
             if can_ship(mid):
-                ans = mid
-                hi = mid - 1
+                hi = mid
             else:
                 lo = mid + 1
-        return ans
+        return lo
 
 
         
