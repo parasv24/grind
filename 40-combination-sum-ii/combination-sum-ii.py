@@ -1,20 +1,19 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()
-        final_ans = []
-        def get_candidates(target, cur_sum, i, cur_vec):
-            if cur_sum == target:
-                final_ans.append(cur_vec)
+        ans = []
+        def rec(i, arr, total, taken):
+            if total > target:
                 return
-            if i >= len(candidates) or cur_sum > target:
+            if i == len(candidates):
+                if total == target:
+                    ans.append(arr)
                 return
-            get_candidates(target, cur_sum + candidates[i], i+1, cur_vec + [candidates[i]])
-            while i + 1 < len(candidates) and candidates[i] == candidates[i + 1]:
-                i += 1
-            get_candidates(target, cur_sum + 0, i+1, cur_vec)
-            return
-        get_candidates(target, 0, 0, [])
-        return final_ans
-
-
+            
+            rec(i+1, arr + [candidates[i]], total + candidates[i], 1)
+            if i > 0 and candidates[i] == candidates[i-1] and taken == 1:
+                return
+            rec(i+1, arr, total, 0)
+        rec(0, [], 0, 0)
+        return ans
         
