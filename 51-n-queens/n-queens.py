@@ -1,45 +1,29 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         ans = []
-        def can_place(i, j, grid):
-            for k in range(0, n):
-                if grid[k][j] == "Q":
-                    return False
-                if grid[i][k] == "Q":
-                    return False
-            
-            di , dj = i, j
-            while di >= 0 and dj >=0:
-                if grid[di][dj] == "Q":
-                    return False
-                di -= 1
-                dj -= 1
-            
-            di , dj = i, j
-            while di >=0 and dj < n:
-                if grid[di][dj] == "Q":
-                    return False
-                di -= 1
-                dj += 1
-            
-            return True
-
-        def back(i, grid):
+        grid = [["." for _ in range(n)] for _ in range(n)]
+        cols = set()
+        diag1 = set()
+        diag2 = set()
+        def back(i):
             if i > n:
                 return
             if i == n:
-                cp_grid = ["" for _ in range(n)]
-                for di in range(n):
-                    cp_grid[di] = "".join(grid[di])
-                ans.append(cp_grid)
+                ans.append([ "".join(grid[di]) for di in range(n)])
                 return
             for j in range(n):
-                if can_place(i, j, grid):
+                if j not in cols and (i+j) not in diag1 and (i-j) not in diag2:
                     grid[i][j] = "Q"
-                    back(i+1, grid)
+                    cols.add(j)
+                    diag1.add(i+j)
+                    diag2.add(i-j)
+                    back(i+1)
                     grid[i][j] = "."
+                    cols.remove(j)
+                    diag1.remove(i+j)
+                    diag2.remove(i-j)
             return
-        back(0, [["." for _ in range(n)] for _ in range(n)])
+        back(0)
         return ans
             
 
