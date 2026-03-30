@@ -26,5 +26,14 @@ class Solution:
             return ans
         ans  = rec(amount)
         return ans if ans < 100000 else -1
+        dp = [100000 for _ in range(amount+1)]
+        dp[0] = 0
+        for i in range(1, amount+1):
+            for coin in coins:
+                if i - coin >= 0 and dp[i-coin] != -1:
+                    dp[i] = min(dp[i], dp[i-coin]+1)
+        return dp[amount] if amount != 100000 else -1
+        
+
 
         
