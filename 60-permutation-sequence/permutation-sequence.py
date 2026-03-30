@@ -12,6 +12,16 @@ class Solution:
                     suf = string[idx: ] if idx < len(string) else ""
                     ans.append(pre + cur + suf)
             return ans
-        return sorted(perms(1))[k-1]
-
-        
+        #return sorted(perms(1))[k-1]
+        nums, fact = [], [1]
+        for i in range(1, n+1):
+            nums.append(i)
+            fact.append(fact[-1] * i)
+        k -= 1
+        ans = []
+        for i in range(n-1, -1, -1):
+            idx = k // fact[i]
+            k = k % fact[i]
+            ans.append(str(nums[idx]))
+            nums.pop(idx)
+        return "".join(ans)
