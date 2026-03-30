@@ -11,7 +11,21 @@ class Solution:
                     suf = arr[idx: ] if idx < len(arr) else []
                     ans.append([*prev, nums[i], *suf])
             return ans
-        return rec(0)
+        #return rec(0)
+
+        ans = []
+        def back(i):
+            if i == len(nums):
+                ans.append(nums[:])
+                return
+            for j in range(i, len(nums)):
+                nums[i], nums[j] = nums[j], nums[i]
+                back(i+1)
+                nums[i], nums[j] = nums[j], nums[i]
+            return
+        back(0)
+        return ans
+
                     
 
 
