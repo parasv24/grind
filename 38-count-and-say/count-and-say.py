@@ -9,13 +9,19 @@ class Solution:
             while i < len(s) and s[i] == cur:
                 i += 1
             return f"{i}{cur}" + rle(s[i:])
-        def rec(n):
-            if n == 1:
-                return "1"
+        # def rec(n):
+        #     if n == 1:
+        #         return "1"
             
-            small_ans = rec(n-1)
-            return rle(small_ans)
-        return rec(n)
+        #     small_ans = rec(n-1)
+        #     return rle(small_ans)
+        # return rec(n)
+        cur  = "1"
+        n -= 1
+        while n > 0:
+            cur = rle(cur)
+            n -= 1 
+        return cur
             
 
         
