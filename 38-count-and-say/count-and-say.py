@@ -19,7 +19,17 @@ class Solution:
         cur  = "1"
         n -= 1
         while n > 0:
-            cur = rle(cur)
+            ans = []
+            i = 0
+            while i < len(cur):
+                ch = cur[i]
+                cnt = 0
+                while i < len(cur) and cur[i] == ch:
+                    i += 1
+                    cnt += 1
+                ans.append(str(cnt))
+                ans.append(ch)
+            cur = "".join(ans)
             n -= 1 
         return cur
             
