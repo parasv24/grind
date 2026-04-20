@@ -49,29 +49,63 @@ class Solution:
         #         return i - len(needle) - len(needle)
         # return -1
 
+        # if len(needle) > len(haystack):
+        #     return -1
+        
+        # lps = [0]
+        # j = 0
+        # for i in range(1, len(needle)):
+        #     while j > 0 and needle[j] != needle[i]:
+        #         j = lps[j-1]
+        #     print(i, j)
+        #     if needle[j] == needle[i]:
+        #         j += 1
+        #     lps.append(j)
+        # print(lps)
+        # j = 0
+        # for i in range(0, len(haystack)):
+        #     print("inside", j, i)
+        #     while j > 0 and needle[j] != haystack[i]:
+        #         j = lps[j-1]
+            
+        #     if needle[j] == haystack[i]:
+        #         j += 1
+            
+        #     if j == len(needle):
+        #         return i - j + 1
+        
+        # return -1
+
         if len(needle) > len(haystack):
             return -1
-        
-        lps = [0]
-        j = 0
-        for i in range(1, len(needle)):
-            while j > 0 and needle[j] != needle[i]:
-                j = lps[j-1]
-            print(i, j)
-            if needle[j] == needle[i]:
-                j += 1
-            lps.append(j)
-        print(lps)
-        j = 0
-        for i in range(0, len(haystack)):
-            print("inside", j, i)
-            while j > 0 and needle[j] != haystack[i]:
-                j = lps[j-1]
+        MOD = 10 ** 9 + 7
+        RADIX = 0
+        hash_val = 0
+        MUL = 1
+        for i in range(len(needle)):
+            hash_val = (hash_val * RADIX + ord(needle[i]) - ord("a")) % MOD
+            if i == 0:
+                RADIX = 26
+            if i > 0:
+                MUL = (MUL * RADIX) % MOD
+        new_hash = 0
+        i, j = 0, 0
+        RADIX = 0
+        print(hash_val, MUL)
+        while j < len(haystack):
+            new_hash = (new_hash * RADIX + ord(haystack[j]) - ord("a")) % MOD
+            print(i, j, new_hash)
+            if j == 0:
+                RADIX = 26
             
-            if needle[j] == haystack[i]:
-                j += 1
-            
-            if j == len(needle):
-                return i - j + 1
-        
+            if j - i + 1 == len(needle):
+                if hash_val == new_hash:
+                    return i
+                sub = (MUL * (ord(haystack[i]) - ord("a"))) % MOD
+                new_hash = (new_hash - sub) % MOD
+                i += 1
+            j += 1
         return -1
+
+
+
