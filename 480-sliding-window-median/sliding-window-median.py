@@ -28,6 +28,7 @@ class Solution:
                     heappop(mx_heap)
                 while min_heap and min_heap[0][1] < i:
                     heappop(min_heap)
+                
                 if k % 2 != 0:
                     ans.append(-mx_heap[0][0])
                 else:
