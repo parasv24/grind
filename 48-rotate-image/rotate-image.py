@@ -4,14 +4,16 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         """
         n = len(matrix)
-        i, j = 0, 0
-        while n > 1:
-            ci, cj = i, j
-            print(ci, cj)
-            for beta in range(n-1):
-                matrix[ci][cj+beta], matrix[ci+beta][cj+n-1],matrix[ci+n-1][cj+n-1-beta],matrix[ci+n-1-beta][cj]=matrix[ci+n-1-beta][cj], matrix[ci][cj+beta],matrix[ci+beta][cj+n-1],matrix[ci+n-1][cj+n-1-beta]
-            n -= 2
-            i +=1
-            j += 1
+        for i in range(n):
+            for j in range(i, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+        for row in matrix:
+            row.reverse()
         
+
+
+
+
+
         
