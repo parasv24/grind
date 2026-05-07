@@ -5,8 +5,6 @@ class Solution:
         def rec(i, arr):
             if i == len(s) and len(arr) == 4:
                 ans.append(".".join(arr))
-            if i == len(s):
-                return
             p = ""
             for j in range(i, len(s)):
                 p += s[j]
