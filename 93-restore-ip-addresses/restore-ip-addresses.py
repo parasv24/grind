@@ -12,7 +12,10 @@ class Solution:
                 p += s[j]
                 if p not in vals:
                     break
-                rec(j+1, arr + [p])
+                if len(arr) < 4:
+                    rec(j+1, arr + [p])
+                else:
+                    break
         rec(0, [])
         return ans
                 
