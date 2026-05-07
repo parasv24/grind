@@ -20,11 +20,11 @@ class Solution:
             for i in range(len(nums)):
                 nums[i] = arr[i]
         exp = 1
-        mx = max(nums)
-        while exp <= mx:
-            count_sort(exp)
-            exp = exp * 10
-        
+        # mx = max(nums)
+        # while exp <= mx:
+        #     count_sort(exp)
+        #     exp = exp * 10
+        nums.sort()
         ans = 0
         for i in range(1, len(nums)):
             ans = max(ans, nums[i] - nums[i-1])
