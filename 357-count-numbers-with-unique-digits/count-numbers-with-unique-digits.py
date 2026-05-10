@@ -3,6 +3,7 @@ class Solution:
         new_n = pow(10, n)
         new_n -= 1
         s = str(new_n)
+        @cache
         def rec(i, limit_on, mask, started):
             if i == len(s):
                 return 1
