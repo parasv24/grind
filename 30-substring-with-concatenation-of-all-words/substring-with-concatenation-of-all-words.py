@@ -57,9 +57,4 @@ class Solution:
                     ans.append(idx)
                 j += 1
         return ans
-   
-            
-
-
-
             
