@@ -3,7 +3,6 @@ class Solution:
         # if len
         lo, hi = 0, len(nums) - 1
         while lo <= hi:
-            # print(lo, hi)
             mid = (lo + hi) // 2
             if nums[lo] < nums[hi]:
                 return nums[lo]
@@ -14,6 +13,5 @@ class Solution:
             elif nums[mid] > nums[hi]:
                 lo = mid + 1
             else:
-                lo += 1
                 hi -= 1
         return nums[hi]
