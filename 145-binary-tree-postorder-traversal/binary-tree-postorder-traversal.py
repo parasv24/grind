@@ -7,19 +7,39 @@
 class Solution:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         # return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val] if root else []
-        # iterative
+        # iterative with reverse
+        # stck = []
+        # postorder = []
+        # temp = root
+        # while True:
+        #     if temp:
+        #         postorder.append(temp.val)
+        #         stck.append(temp)
+        #         temp = temp.right
+        #     else:
+        #         if not stck:
+        #             return postorder[::-1]
+        #         temp =stck.pop()
+        #         temp = temp.left
+
         stck = []
         postorder = []
         temp = root
+        prev = None
+
         while True:
             if temp:
-                postorder.append(temp.val)
                 stck.append(temp)
-                temp = temp.right
+                temp = temp.left
             else:
                 if not stck:
-                    return postorder[::-1]
-                temp =stck.pop()
-                temp = temp.left
+                    return postorder
+                node = stck[-1]
+                if node.right and node.right != prev:
+                    temp = node.right
+                else:
+                    postorder.append(node.val)
+                    prev = node
+                    stck.pop()
         
         
