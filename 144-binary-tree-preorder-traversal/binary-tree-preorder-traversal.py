@@ -11,16 +11,25 @@ class Solution:
         stck = []
         preorder = []
         temp = root
-        while True:
-            if temp:
+        # while True:
+        #     if temp:
+        #         preorder.append(temp.val)
+        #         stck.append(temp)
+        #         temp = temp.left
+        #     else:
+        #         if not stck:
+        #             return preorder
+        #         temp = stck.pop()
+        #         temp = temp.right
+        while stck or temp:
+            while temp:
                 preorder.append(temp.val)
                 stck.append(temp)
                 temp = temp.left
-            else:
-                if not stck:
-                    return preorder
-                temp = stck.pop()
-                temp = temp.right
+            if stck:
+                node = stck.pop()
+                temp = node.right
+        return preorder
 
 
         
