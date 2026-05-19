@@ -8,17 +8,30 @@ class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         # return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right) if root else []
         # iterative
+        # stck = []
+        # temp = root
+        # inorder = []
+        # while True:
+        #     if temp is not None:
+        #         stck.append(temp)
+        #         temp = temp.left
+        #     else:
+        #         if not stck:
+        #             return inorder
+        #         temp = stck.pop()
+        #         inorder.append(temp.val)
+        #         temp = temp.right
+
         stck = []
         temp = root
         inorder = []
-        while True:
-            if temp is not None:
+        while stck or temp:
+            while temp:
                 stck.append(temp)
                 temp = temp.left
-            else:
-                if not stck:
-                    return inorder
-                temp = stck.pop()
-                inorder.append(temp.val)
-                temp = temp.right
+            if stck:
+                node = stck.pop()
+                inorder.append(node.val)
+                temp = node.right
+        return inorder
             
