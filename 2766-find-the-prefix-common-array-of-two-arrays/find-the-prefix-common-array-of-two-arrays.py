@@ -1,16 +1,14 @@
 class Solution:
     def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
-        arr = [[0,0] for _ in range(len(A))]
+        mp = {}
         ans = []
         prev = 0
         for x, y in zip(A, B):
-            arr[x-1][0] += 1
-            arr[y-1][1] += 1
-            if x == y:
-                prev = prev + 1
-            else:
-                prev += int(arr[x-1][0]>0 and arr[x-1][1] > 0) + int(arr[y-1][0]>0 and arr[y-1][1] > 0)
+            mp[x] = mp.get(x, 0) + 1
+            mp[y] = mp.get(y, 0) - 1
+            if mp[x] == 0:
+                prev += 1
+            if mp[y] == 0 and y!=x:
+                prev += 1
             ans.append(prev)
         return ans
-
-        
