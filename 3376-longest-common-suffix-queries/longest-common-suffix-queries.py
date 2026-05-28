@@ -7,7 +7,6 @@ class Solution:
             def __init__(self, val):
                 self.val = val
                 self.children = {}
-        
         root = Node(tup[0][1])
         for word, idx in tup:
             curr = root
