@@ -19,14 +19,13 @@ class Solution:
                         queue.append([child, dep + 1])
             return dep
         dep = depth(1)
-        
+
         MOD = 10 ** 9 + 7
-        @cache
-        def get_ways(n, val):
-            if n == 0:
-                return int(val == 1)
-            return (get_ways(n-1, (val + 1) % 2) + get_ways(n-1, (val+2)%2)) % MOD
-        
-        # print(dep)
-        return get_ways(dep, 0)
+        # @cache
+        # def get_ways(n, val):
+        #     if n == 0:
+        #         return int(val == 1)
+        #     return (get_ways(n-1, (val + 1) % 2) + get_ways(n-1, (val+2)%2)) % MOD
+        # return get_ways(dep, 0)
+        return pow(2, dep - 1, 1_000_000_007)
         
