@@ -4,7 +4,6 @@ class Solution:
         for x, y in edges:
             mp[x].append(y)
             mp[y].append(x)
-        print(mp)
 
         def depth(root):
             queue = deque()
@@ -20,7 +19,7 @@ class Solution:
                         queue.append([child, dep + 1])
             return dep
         dep = depth(1)
-        print(dep)
+        
         MOD = 10 ** 9 + 7
         @cache
         def get_ways(n, val):
