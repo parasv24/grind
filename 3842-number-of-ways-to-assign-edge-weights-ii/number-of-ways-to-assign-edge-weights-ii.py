@@ -8,16 +8,13 @@ class Solution:
         
         parent = [-1] * (n + 1)
         depth = [0] * (n + 1)
-        vis = set()
-        vis.add(1)
         def dfs(root, p, dep):
             if not root:
                 return
             parent[root] = p
             depth[root] = dep + 1
             for child in graph[root]:
-                if child not in vis:
-                    vis.add(child)
+                if child != p:
                     dfs(child, root, dep + 1)
             return
         dfs(1, 1, -1)
@@ -32,17 +29,6 @@ class Solution:
                     lift_table[i][j] = lift_table[i-1][lift_table[i-1][j]]
         
         ans = []
-        def get_lca(a, b):
-            if a == b:
-                return a
-            
-            i = 0
-            while lift_table[i][a] != lift_table[i][b]:
-                i += 1
-            
-            if i == 0:
-                return lift_table[i][a]
-            return get_lca(lift_table[i-1][a], lift_table[i-1][b])
         MOD = 10 ** 9 + 7
         for x, y in queries:
             depx, depy = depth[x], depth[y]
@@ -50,15 +36,20 @@ class Solution:
                 x , y = y, x
                 depx, depy = depy, depx
             ini_jumps = depy - depx
-            binary = bin(ini_jumps)[2:][::-1]
-            # print(binary)
-            for idx, ch in enumerate(binary):
-                if ch == "1":
-                    y = lift_table[idx][y]
-            # print(x, y)
-            lca = get_lca(x, y)
+
+            for i in range(logn):
+                if ini_jumps & (1 << i):
+                    y = lift_table[i][y]
+            
+            if x == y:
+                lca = x
+            else:
+                for i in range(logn - 1, -1, -1):
+                    if lift_table[i][x] != lift_table[i][y]:
+                        x = lift_table[i][x]
+                        y = lift_table[i][y]
+                lca = parent[x]
             path_length = depx - depth[lca] + depy - depth[lca]
-            # print(path_length, lca, depx, depy)
             if path_length == 0:
                 ans.append(0)
             else:
