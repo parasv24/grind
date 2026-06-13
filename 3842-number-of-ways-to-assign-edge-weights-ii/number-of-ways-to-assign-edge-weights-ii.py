@@ -1,60 +1,55 @@
 class Solution:
     def assignEdgeWeights(self, edges: List[List[int]], queries: List[List[int]]) -> List[int]:
+        MOD = 10**9 + 7
+        n = len(edges) + 2
+
         graph = defaultdict(list)
-        n = len(edges) + 1
-        for x, y in edges:
-            graph[x].append(y)
-            graph[y].append(x)
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+
+        qmp = defaultdict(list)
+        depth = [0] * n
+        for i in range(len(queries)):
+            x, y = queries[i]
+            qmp[x].append((y, i))
+            qmp[y].append((x, i))
         
-        parent = [-1] * (n + 1)
-        depth = [0] * (n + 1)
-        def dfs(root, p, dep):
-            if not root:
-                return
-            parent[root] = p
-            depth[root] = dep + 1
+        def find(i):
+            if parent[i] != i:
+                parent[i] = find(parent[i])
+            return parent[i]
+        
+        def union(i, j):
+            pi, pj = find(i), find(j)
+            if pi != pj:
+                parent[pi] = pj
+        
+        parent = [i for i in range(n)]
+        
+        color = [0] * n
+        ans = [0] * len(queries)
+        def dfs(root, dep):
+            color[root] = 1
+            depth[root] = dep
             for child in graph[root]:
-                if child != p:
-                    dfs(child, root, dep + 1)
-            return
-        dfs(1, 1, -1)
-
-        logn = ceil(log(n+1, 2))
-        lift_table = [[0 for _ in range(n+1)] for _ in range(logn)]
-        for i in range(logn):
-            for j in range(n+1):
-                if i == 0:
-                    lift_table[i][j] = parent[j]
-                else:
-                    lift_table[i][j] = lift_table[i-1][lift_table[i-1][j]]
-        
-        ans = []
-        MOD = 10 ** 9 + 7
-        for x, y in queries:
-            depx, depy = depth[x], depth[y]
-            if depx > depy:
-                x , y = y, x
-                depx, depy = depy, depx
-            ini_jumps = depy - depx
-
-            for i in range(logn):
-                if ini_jumps & (1 << i):
-                    y = lift_table[i][y]
+                if not color[child]:
+                    dfs(child, dep+1)
+                    union(child, root)
             
-            if x == y:
-                lca = x
-            else:
-                for i in range(logn - 1, -1, -1):
-                    if lift_table[i][x] != lift_table[i][y]:
-                        x = lift_table[i][x]
-                        y = lift_table[i][y]
-                lca = parent[x]
-            path_length = depx - depth[lca] + depy - depth[lca]
-            if path_length == 0:
-                ans.append(0)
-            else:
-                ans.append(pow(2, path_length-1, MOD))   
-        return ans
+            for other_root, idx in qmp[root]:
+                if color[other_root] == 2:
+                    lca = find(other_root)
+                    length = depth[root] + depth[other_root] - (2 * depth[lca])
+                    ans[idx] = pow(2, length-1, MOD)
+            color[root] = 2
+        dfs(1, 0)
+        return ans 
+
+
+
+
+
                 
         
         
