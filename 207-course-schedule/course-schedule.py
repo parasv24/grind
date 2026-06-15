@@ -1,21 +1,25 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = {i: [] for i in range(numCourses)}
-        courses = [0 for _ in range(numCourses)]
-        for x, y in prerequisites:
-            graph[y].append(x)
-            courses[x] += 1
-        queue = deque([i for i in range(numCourses) if courses[i] == 0])
-        leng = 0
-        while len(queue) > 0:
-            node = queue.popleft()
-            leng += 1
-            for i in graph[node]:
-                courses[i] -= 1
-                if courses[i] == 0:
-                    queue.append(i)
-        if leng == numCourses:
-            return True
-        return False 
+        visited = [0] * numCourses
+        graph = defaultdict(list)
+        def dfs(i):
+            visited[i] = 1
+            for child in graph[i]:
+                if visited[child] == 1:
+                    return True
+                if visited[child] == 0 and dfs(child):
+                    return True
+            visited[i] = 2
+            return False
+        
+        for u, v in prerequisites:
+            graph[v].append(u)
+
+        for i in range(numCourses):
+            if visited[i] == 0:
+                has_cycle = dfs(i)
+                if has_cycle:
+                    return False
+        return True
 
         
