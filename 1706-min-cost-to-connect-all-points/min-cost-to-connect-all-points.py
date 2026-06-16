@@ -33,7 +33,7 @@ class Solution:
             
             parent[pv] = pu
             if ru == rv:
-                rank[pv] += 1
+                rank[pu] += 1
             return True
         
         for d, src, dest in dis:
