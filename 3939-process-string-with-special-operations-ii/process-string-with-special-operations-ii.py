@@ -15,26 +15,14 @@ class Solution:
                 length += 1
             
             lengths.append(length)
-            
-            if length <= 10 ** 5:
-                if ch == "*":
-                    if len(ans) > 0:
-                        ans.pop()
-                elif ch == "#":
-                    ans += ans
-                elif ch == "%":
-                    ans = ans[::-1]
-                else:
-                    ans.append(ch)
-        
-        # print(length)
+
         if length < k + 1:
             return "."
         
-        string = "".join(ans)
         i = len(s) - 1
-        # print(lengths)
-        while i >= 0  and lengths[i] > 10 ** 5:
+        while i >= 0 and lengths[i] >= 0:
+            if lengths[i] == k + 1 and s[i] not in ["#", "%", "*"]:
+                return s[i]
             if s[i] == "%":
                 cur_l = lengths[i]
                 k = cur_l - 1 - k
@@ -42,7 +30,7 @@ class Solution:
                 cur_l = lengths[i]
                 k = k % ((cur_l) // 2)
             i -= 1
-        return string[k]
+        return "."
 
 
         
