@@ -20,41 +20,26 @@ class Solution:
                     dist[nx * n + ny] = d + 1
                     queue.append((nx, ny))
 
-        nodes = [(v, k) for k, v in dist.items()]
-        nodes.sort(reverse=True)
-        parent = list(range(n*n))
-        rank = [0] * (n * n)
-        def find(x):
-            if parent[x] != x:
-                parent[x] = find(parent[x])
-            return parent[x]
-        
-        def union(x, y):
-            px, py = find(x), find(y)
-            rx, ry = rank[px], rank[py]
+        dis = [-1] * (n*n)
+        dis[0] = dist[0]
+        heap = [(-dist[0], 0)]
+        while heap:
+            d, node = heapq.heappop(heap)
+            d = -d
+
+            if d < dis[node]:
+                continue
             
-            if px == py:
-                return False
-            if rx < ry:
-                px, py = py, px
-                rx, ry = ry, rx
-            
-            parent[py] = px
-            if rx == ry:
-                rank[px] += 1
-            return True
-        active = set()
-        mini = 1000000
-        
-        for value, node in nodes:
-            active.add(node)
-            mini = min(mini, value)
+            if node == n * n - 1:
+                return d
             i , j = node // n, node % n
             for dx, dy in delta:
                 nx, ny = i + dx, j + dy
-                if 0 <= nx < n and 0 <= ny < n and nx * n + ny in active:
-                    union(nx*n + ny, node)
-                
-                if find(0) == find(n * n - 1):
-                    return mini
+                if 0 <= nx < n and 0 <= ny < n:
+                    val = min(d, dist[nx*n + ny])
+                    if val > dis[nx *n + ny]:
+                        heapq.heappush(heap, (-val, nx *n + ny))
+                        dis[nx*n + ny] = val
         return -1
+            
+        
